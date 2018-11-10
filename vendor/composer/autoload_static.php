@@ -39,6 +39,7 @@ class ComposerStaticInit5954e027952a42b0c96003bc3b17c270
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Cache\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'N' => 
         array (
@@ -96,6 +97,10 @@ class ComposerStaticInit5954e027952a42b0c96003bc3b17c270
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Nexmo\\' => 
         array (
