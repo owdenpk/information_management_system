@@ -1,7 +1,8 @@
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
 
 <?php
 session_start();
+include('vendor/autoload.php');
 //include ('connect.php');
 
 // initializing variables
@@ -55,11 +56,11 @@ if (isset($_POST['reg_user'])) {
   			  VALUES('$username', '$email','$phone', '$title', '$password')";
   	mysqli_query($db, $query);
     //$_SESSION['echo $'] = $username;
-  	$_SESSION['username'] = $username;
+  	//$_SESSION['username'] = $username;
     $_SESSION['email'] = $email;
-    $_SESSION['title'] = $title;
-    $_SESSION['phone'] = $phone;
-    $_SESSION['password']=$password;
+    //$_SESSION['title'] = $title;
+    //$_SESSION['phone'] = $phone;
+    //$_SESSION['password']=$password;
   	$_SESSION['success'] = "You are now logged in";
   	header('location: index.php');
   }
@@ -72,10 +73,10 @@ if (isset($_POST['reg_user'])) {
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {
-  $username = mysqli_real_escape_string($db, $_POST['username']);
+  $email = mysqli_real_escape_string($db, $_POST['email']);
   $password = mysqli_real_escape_string($db, $_POST['password']);
-  if (empty($username)) {
-    array_push($errors, "Username is required");
+  if (empty($email)) {
+    array_push($errors, "Email is required");
   }
   if (empty($password)) {
     array_push($errors, "Password is required");
@@ -83,12 +84,12 @@ if (isset($_POST['login_user'])) {
 
   if (count($errors) == 0) {
     $password = sha1($password);
-    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     $results = mysqli_query($db, $query);
     if (mysqli_num_rows($results) == 1) {
-      $_SESSION['username'] = $username;
+      $_SESSION['email'] = $email;
       $_SESSION['success'] = "You are now logged in";
-      header('location: checkemail.php');
+      header('location: sendmail.php');
     }else {
     array_push($errors, header("location:  login.php?remark_login=failed"));
 

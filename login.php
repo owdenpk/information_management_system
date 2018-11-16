@@ -43,7 +43,7 @@
     }
     if  ($remarks=='failed')
     {
-      echo  '<div class="panel panel-danger panel-heading text-center" style="background-color: red"><b>wrong username or password!<h1></b></div>';
+      echo  '<div class="panel panel-danger panel-heading text-center" style="background-color: red"><b>wrong Email or password!<h1></b></div>';
     }
     else
      ?>
@@ -61,15 +61,15 @@
         </div> -->
     <div class="row">
       <div class="col-md-3 field-label-responsive">
-                <label for="name"><b>Username</b></label>
+                <label for="name"><b>Email</b></label>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" name="username" class="form-control" id="name" value="<?php echo $username; ?>"
-                               placeholder="someone someone" required autofocus>
+                        <input type="text" name="email" class="form-control" id="name" value="<?php echo $email; ?>"
+                               placeholder=example@gmail.com required autofocus>
                     </div>
                 </div>
             </div>

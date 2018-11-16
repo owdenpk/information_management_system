@@ -2,13 +2,13 @@
 <?php 
   session_start(); 
 
-  if (!isset($_SESSION['username'])) {
+  if (!isset($_SESSION['email'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
   }
   if (isset($_GET['logout'])) {
     session_destroy();
-    unset($_SESSION['username']);
+    unset($_SESSION['email']);
     header("location: login.php");
   }
 ?>
@@ -371,8 +371,8 @@
 
 <?php
 include 'connect.php';
-$t = $_SESSION['username'];
-$sql = "SELECT title FROM users where username = '$t'";
+$t = $_SESSION['email'];
+$sql = "SELECT title FROM users where email = '$t'";
 $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $k=$row['title'];
@@ -393,7 +393,7 @@ if($k== 'Accountant' || $k== 'Chief Executive Officer'){
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="financial.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -481,8 +481,8 @@ if($k== 'Accountant' || $k== 'Chief Executive Officer'){
                 </div>
 <?php
 include 'connect.php';
-$t = $_SESSION['username'];
-$sql = "SELECT title FROM users where username = '$t'";
+$t = $_SESSION['email'];
+$sql = "SELECT title FROM users where email = '$t'";
 $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $k=$row['title'];
@@ -516,8 +516,8 @@ if($k== 'Accountant' || $k== 'Chief Executive Officer'){
 
             <?php
 include 'connect.php';
-$t = $_SESSION['username'];
-$sql = "SELECT title FROM users where username = '$t'";
+$t = $_SESSION['email'];
+$sql = "SELECT title FROM users where email = '$t'";
 $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $y=$row['title'];

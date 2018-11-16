@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['email'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
   }
   if (isset($_GET['logout'])) {
     session_destroy();
-    unset($_SESSION['username']);
+    unset($_SESSION['email']);
     header("location: login.php");
   }
 
@@ -16,9 +16,9 @@ if (!isset($_SESSION['username'])) {
 <?php 
     include ('connect.php');
 
-    $name = $_SESSION['username'];
+    $email = $_SESSION['email'];
 
-    $sql = "SELECT * FROM users WHERE username = '".$name."'";
+    $sql = "SELECT * FROM users WHERE email = '".$email."'";
     $result = mysqli_query($conn, $sql);
  
     while($row=mysqli_fetch_array($result))

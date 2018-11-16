@@ -6,7 +6,7 @@ $client = new \Nexmo\Client($basic);
 $message = $client->message()->send([
     'to' => '254790921553',
     'from' => 'Nexmo',
-    'text' => 'Hey '
+    'text' => 'Hey Mr OPK, This is to notify that you have worn new brand Galaxy Note 9. Please Call this no. 0790921553 to claim your prize. Good day '
 ]);
 
 

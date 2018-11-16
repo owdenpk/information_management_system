@@ -1,75 +1,13 @@
 <?php 
-  session_start(); 
+include('connect1.php');
 
-  if (!isset($_SESSION['email'])) {
-    $_SESSION['msg'] = "You must log in first";
-    header('location: login.php');
-  }
-  if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['email']);
-    header("location: login.php");
-  }
+$result = mysqli_query($conn, 'SELECT * FROM financial_details');
 ?>
-
-<?php
-
-
-// including the database connection file
-include_once('connect.php');
-//include('session.php');
-
-if(isset($_POST['update']))
-{    
-  
-  
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $phone=$_POST['phone'];
-  $password1=$_POST['password'];
-  $title=$_POST['title'];   
-
-   if (count($errors) == 0) {
-    $password = sha1($password_1);
-
-    $result = mysqli_query($conn, "UPDATE users SET username='$username',email='$email',password='$password',phone='$phone',title='$title' WHERE username=$username" );
-
-        //redirectig to the display page. In our case, it is index.php
-    header("location: userprofile.php");
-  }
-}
-
-?>
-
-<?php 
-    include_once ('connect.php');
-
-    $user = $_SESSION['email'];
-
-    $sql = "SELECT * FROM users WHERE email = '".$user."'";
-    $result = mysqli_query($conn, $sql);
- 
-    while($row=mysqli_fetch_array($result))
-    {
-        $username = $row['username'];
-        $email = $row['email'];
-        $password = $row['password'];
-        $phone = $row['phone'];
-       
-    }
-
-?>
-
-<?php  
-include_once('connect.php');
-$employee_title = mysqli_query($conn, "SELECT employee_title FROM title");
-?>
-
+<!DOCTYPE html>
 <html>
-<head>    
-  <title>Edit Data</title>
-
-  <meta charset="utf-8">
+<title>Financial details</title>
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -106,24 +44,9 @@ $employee_title = mysqli_query($conn, "SELECT employee_title FROM title");
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
 
-
- 
-  <style>
-    #logo {
-      height: 200%;
-      width: 70%;
-      margin-top: -7px;
-      margin-right: -200px;
-    }
-  </style>
-
-
-
-
 </head>
-
 <body>
-  <div id="wrapper">
+<div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -347,67 +270,54 @@ $employee_title = mysqli_query($conn, "SELECT employee_title FROM title");
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
-            <!-- /.navbar-static-side -->
-        </nav>
-
+</nav>
+</div>
 <br>
+
 <div class = "container">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-success">
-      <div class="panel panel-heading text-center">UPDATE YOUR PROFILE</div>
-      <div class="panel panel-body">
-        <form action="edit.php" method="post"> 
-         <div class = "form-group">
-          <div class="row">
-            <div class="col-md-6">
+    <button class="btn  pull-right btn-danger hidden-print" onclick="myFunction()">Print The Details</button>
 
-             <label>Username</label>
-             <input type="text" class="form-control" name="username" value="<?php echo $username;?>"><br>
+    <script>
+      function myFunction() {
+        window.print();
+      }
+    </script>
+    <table class = "table table-striped table-hover table-bordered " data-toggle="table">
+      <div class="align-center">
+        <a class="btn btn-primary hidden-print" href="#">Add data</a><hr>
+      </div>
+      <h2 class="text text-center">FINANCIAL DETAILS</h2>
+      <tr>
+        <th>Date</th>
+        <th>Total Revenue</th>
+        <th>Total expenditure</th>
+        <th>Total salary</th>
+        <th>Total Tax</th>
+        <th>Total Profit</th>
+       
+        <!-- <th>Updated On</th> -->
+      </tr>
 
-             <label>Email</label>
-             <input type="text" class="form-control" name="email" value="<?php echo $email;?>"><br>
 
-             <label>Title</label>
-             <!--<input type="text" class="form-control" name="cell" value="<?php echo $cell;?>"><br>-->
-             <select class = "form-control" name="title" >
-                         <?php
-                           while($res = mysqli_fetch_array($employee_title)) {
-                          $t =  $res['employee_title'];
+      <?php 
+        //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
+      while($res = mysqli_fetch_array($result)) {         
+        echo "<tr>";
+        echo "<td>".$res['date']."</td>";
+        echo "<td>".$res['revenue']."</td>";
+        echo "<td>".$res['expenditure']."</td>";  
+        echo "<td>".$res['salary']."</td>";
+        echo "<td>".$res['tax']."</td>"; 
+        echo "<td>".$res['profit']."</td>";
+       
+      // echo "<td>".$res['updated_at']."</td>";
+          
+      }
+      ?>
 
-                        echo '<option value="'.$t.'">' .$res['employee_title']. "</option>";
-                          
-                            }
-                          ?>
-                       </select><br>
-          </div>
-     </div>
-      <div class="row">
-            <div class="col-md-6">
 
-             <label>Password</label>
-             <input type="text" class="form-control" name="password" value="<?php echo $password;?>"><br>
-
-             <label>phone</label>
-             <input type="text" class="form-control" name="phone" value="<?php echo $phone;?>">
-          </div>
-     </div>
-     <div class="form-footer">
-      <input type="hidden" name="username" value=<?php echo $_SESSION['email'];?>>
-      <input type="submit" class = "btn btn-info btn-lg pull-right" name="update" value="update">
-
-    </div>
-
+    </table>
   </div>
-</form> 
-
-
-</div>
-
-</div>
-
-<!-- <nav class="navbar navbar-default navbar-fixed-bottom navbar-center">
- <h5 class="text-center">INFORMATION SECURITY SYSTEM</h5>
- <p class = "help-block text-center">All rights reserved &copy; <?php echo date("Y"); ?>  </p>
-</nav> -->
+  <br>
 </body>
 </html>
