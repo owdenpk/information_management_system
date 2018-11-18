@@ -9,6 +9,6 @@ $message = $client->message()->send([
     'text' => 'Hey Mr OPK, This is to notify that you have worn new brand Galaxy Note 9. Please Call this no. 0790921553 to claim your prize. Good day '
 ]);
 
-
+header("index.php");
 ?>
 

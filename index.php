@@ -352,14 +352,14 @@
                                  <i class="fa fa-smile-o fa-5x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="medium">Employee Status</div>
+                                    <div class="medium">Seniour Staff</div>
                                    <!--  <div>Employee status</div> -->
                                 </div>
                             </div>
                         </div>
 
 
-                        <a href="#">
+                        <a href="seniour.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -369,6 +369,7 @@
                     </div>
                 </div>
 
+
 <?php
 include 'connect.php';
 $t = $_SESSION['email'];
@@ -377,7 +378,7 @@ $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $k=$row['title'];
 }
-if($k== 'Accountant' || $k== 'Chief Executive Officer'){
+if($k== 'Accountant' || $k== 'Chief Executive Officer' || $k== 'General Manager'){
 ?>
 
                 <div class="col-lg-3 col-md-6">
@@ -487,7 +488,7 @@ $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $k=$row['title'];
 }
-if($k== 'Accountant' || $k== 'Chief Executive Officer'){
+if($k== 'Accountant' || $k== 'Chief Executive Officer' || $k== 'General Manager'){
 ?>
                  <div class="col-lg-3 col-md-6">
                     <div class="panel panel-default">
@@ -522,7 +523,7 @@ $result = mysqli_query($conn, $sql);
 while($row = $result->fetch_assoc()) {
     $y=$row['title'];
 }
-if($y== 'system admin' || $y== 'Chief Executive Officer'){
+if($y== 'system admin' || $y== 'Chief Executive Officer' || $y== 'General Manager'){
 ?>
 
                  <div class="col-lg-3 col-md-6">
@@ -545,7 +546,32 @@ if($y== 'system admin' || $y== 'Chief Executive Officer'){
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        <?php }?>
+                        </a>
+                    </div>
+                </div>
+ <?php }?>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-black">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                  <i class="fa fa-smile-o fa-5x" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="medium">General staff</div>
+                                   <!--  <div>Employee status</div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="general.php">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
                         </a>
                     </div>
                 </div>

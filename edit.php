@@ -32,7 +32,7 @@ if(isset($_POST['update']))
    if (count($errors) == 0) {
     $password = sha1($password_1);
 
-    $result = mysqli_query($conn, "UPDATE users SET username='$username',email='$email',password='$password',phone='$phone',title='$title' WHERE username=$username" );
+    $result = mysqli_query($conn, "UPDATE users SET username='$username',email='$email',password='$password',phone='$phone',title='$title' WHERE email=$email" );
 
         //redirectig to the display page. In our case, it is index.php
     header("location: userprofile.php");
@@ -392,7 +392,7 @@ $employee_title = mysqli_query($conn, "SELECT employee_title FROM title");
           </div>
      </div>
      <div class="form-footer">
-      <input type="hidden" name="username" value=<?php echo $_SESSION['email'];?>>
+      <input type="hidden" name="user" value=<?php echo $_SESSION['email'];?>>
       <input type="submit" class = "btn btn-info btn-lg pull-right" name="update" value="update">
 
     </div>

@@ -1,37 +1,11 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['email'])) {
-    $_SESSION['msg'] = "You must log in first";
-    header('location: login.php');
-  }
-  if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['email']);
-    header("location: login.php");
-  }
-
-  ?>
-
 <?php 
-    include ('connect.php');
+include('connect.php');
 
-    $email = $_SESSION['email'];
-
-    $sql = "SELECT * FROM users WHERE email = '".$email."'";
-    $result = mysqli_query($conn, $sql);
- 
-    while($row=mysqli_fetch_array($result))
-    {
-        $username = $row['username'];
-        $email = $row['email'];
-        $title = $row['title'];
-        $phone = $row['phone'];
-    }
-
+$result = mysqli_query($conn, 'SELECT * FROM users WHERE title != "Chief Executive Officer" AND title != "General Manager"');
 ?>
-
-<title>User Profile</title>
+<!DOCTYPE html>
+<html>
+<title>general staffs</title>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +44,9 @@ if (!isset($_SESSION['email'])) {
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
 
-    <div id="wrapper">
+</head>
+<body>
+<div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -293,99 +269,51 @@ if (!isset($_SESSION['email'])) {
                 </li>
                 <!-- /.dropdown -->
             </ul>
-        </nav>
-    </div>
-</head>
+            <!-- /.navbar-top-links -->
+</nav>
+</div>
+<br>
 
-<body>
+<div class = "container">
+    <button class="btn  pull-right btn-danger hidden-print" onclick="myFunction()">Print The Details</button>
+
+    <script>
+      function myFunction() {
+        window.print();
+      }
+    </script>
+    <table class = "table table-striped table-hover table-bordered " data-toggle="table">
+      <!-- <div class="align-center">
+        <a class="btn btn-primary hidden-print" href="#">Add data</a><hr>
+      </div> -->
+      <h2 class="text text-center">General Staffs</h2>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Positon</th>
+        <th>Phone Number</th>
+       
+        <!-- <th>Updated On</th> -->
+      </tr>
 
 
+      <?php 
+        //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
+      while($res = mysqli_fetch_array($result)) {         
+        echo "<tr>";
+        echo "<td>".$res['username']."</td>";
+        echo "<td>".$res['email']."</td>";
+        echo "<td>".$res['title']."</td>";  
+        echo "<td>".$res['phone']."</td>";
+       
+      // echo "<td>".$res['updated_at']."</td>";
+          
+      }
+      ?>
+
+
+    </table>
+  </div>
+  <br>
 </body>
-<!-- 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
--- Include the above in your HEAD tag ---------->
-<br>
-<br>
-<div class="container emp-profile">
-            <form method="post">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h1>
-                                        <strong><?php echo $username ?></strong>
-                                    </h1>
-                                    <h4>
-                                        <strong><?php echo $title ?></strong>
-                                    </h4>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                               <!--  <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                </li> -->
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                       <button><a href="edit.php">Edit profile</a></button>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <br>
-                                       
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $username ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $email ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $phone ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Position</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $title ?></p>
-                                            </div>
-                                        </div>
-                            </div>
-                           
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>           
-        </div>
+</html>
